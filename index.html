@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted NYC - Ghost Story Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Special Elite', cursive;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #4a1a4a;
+        }
+
+        h1 {
+            font-family: 'Creepster', cursive;
+            color: #ff6b6b;
+            margin: 0;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .subtitle {
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex-grow: 1;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .story-generator {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #4a1a4a;
+            margin-bottom: 2rem;
+        }
+
+        .story-generator h2 {
+            color: #ff6b6b;
+            font-family: 'Creepster', cursive;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ff6b6b;
+        }
+
+        .input-group select,
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #2a2a2a;
+            border: 1px solid #4a1a4a;
+            color: #e0e0e0;
+            font-family: 'Special Elite', cursive;
+            border-radius: 4px;
+        }
+
+        .input-group select:focus,
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .generate-btn {
+            display: block;
+            width: 100%;
+            background-color: #4a1a4a;
+            color: #e0e0e0;
+            padding: 1rem;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Special Elite', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            background-color: #6b2b6b;
+            transform: scale(1.02);
+        }
+
+        .story-output {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid #4a1a4a;
+            display: none;
+        }
+
+        .story-output h3 {
+            color: #ff6b6b;
+            margin-top: 0;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .map-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            text-align: center;
+            border-top: 2px solid #4a1a4a;
+            margin-top: 2rem;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Haunted NYC</h1>
+        <p class="subtitle">Discover Ghost Stories from Your Neighborhood</p>
+    </div>
+
+    <div class="main-content">
+        <div class="intro-text">
+            <p>Enter your location or select a neighborhood to discover its haunted history. Our ghost story generator will reveal spooky tales and paranormal encounters from your area.</p>
+        </div>
+
+        <div class="story-generator">
+            <h2>Ghost Story Generator</h2>
+            <div class="input-group">
+                <label for="location-type">What type of location are you interested in?</label>
+                <select id="location-type">
+                    <option value="">Select a type...</option>
+                    <option value="residential">Residential</option>
+                    <option value="museum">Museum</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="bar">Bar</option>
+                    <option value="theater">Theater</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="neighborhood">Enter a neighborhood or address:</label>
+                <input type="text" id="neighborhood" placeholder="e.g., Harlem, Flushing, West Village...">
+            </div>
+            <button class="generate-btn" onclick="generateStory()">Generate Ghost Story</button>
+            
+            <div id="story-output" class="story-output">
+                <h3>Haunted History</h3>
+                <div class="story-text" id="story-text"></div>
+            </div>
+        </div>
+
+        <a href="map.html" class="map-link">Explore the Full Haunted Map →</a>
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Haunted NYC - All stories are based on historical accounts and eyewitness testimonies</p>
+    </div>
+
+    <script>
+        function generateStory() {
+            const locationType = document.getElementById('location-type').value;
+            const neighborhood = document.getElementById('neighborhood').value.toLowerCase();
+            const storyOutput = document.getElementById('story-output');
+            const storyText = document.getElementById('story-text');
+            
+            // Sample stories based on location type and neighborhood
+            const stories = {
+                residential: {
+                    harlem: "The Haunted House of Harlem, built in 1790, is NYC's oldest documented haunted residence. Residents report hearing footsteps and seeing shadowy figures in the windows.",
+                    flushing: "In 1927, residents reported hearing mysterious piano music from an abandoned attic. The spectral pianist's identity remains unknown to this day.",
+                    default: "Many old residential buildings in NYC have their own ghost stories. Some residents report hearing footsteps, seeing shadowy figures, or experiencing unexplained cold spots."
+                },
+                museum: {
+                    default: "The Merchant's House Museum, built in 1832, is home to Gertrude Tredwell's ghost. Visitors often report seeing her in period clothing, walking through the halls."
+                },
+                restaurant: {
+                    default: "One if by Land, Two if by Sea restaurant was once Aaron Burr's carriage house. Staff and diners have reported seeing a ghostly woman in white and experiencing unexplained cold spots."
+                },
+                hotel: {
+                    default: "The Algonquin Hotel is known for its ghostly resident in a top hat, often seen in the lobby. Some guests have reported their room keys mysteriously moving on their own."
+                },
+                bar: {
+                    default: "The White Horse Tavern, where Dylan Thomas had his last drink, is said to be visited by his ghost. Some claim to see him at his favorite table, writing poetry."
+                },
+                theater: {
+                    default: "The New Amsterdam Theatre is haunted by Olive Thomas, a Ziegfeld Follies performer. She's often seen in her dressing room or on the catwalk, still performing her routines."
+                }
+            };
+
+            let story = "Please select a location type and enter a neighborhood to generate a ghost story.";
+            
+            if (locationType && neighborhood) {
+                if (stories[locationType] && stories[locationType][neighborhood]) {
+                    story = stories[locationType][neighborhood];
+                } else if (stories[locationType]) {
+                    story = stories[locationType].default;
+                }
+            }
+
+            storyText.textContent = story;
+            storyOutput.style.display = 'block';
+        }
+    </script>
+</body>
+</html> 
